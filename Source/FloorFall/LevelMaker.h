@@ -37,14 +37,16 @@ public:
 	int NumOfFloorY;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Map")
-	TSubclassOf<class AActor> WhatToSpawn;	
+	TSubclassOf<class AFloor> WhatToSpawn;	
 
 	UFUNCTION(BlueprintCallable, Category = "Map")
 	void SetFloorState(int x, int y, FloorState val);
 	UFUNCTION(BlueprintCallable, Category = "Map")
-	void ResetFloorState(FloorState floorState);
+	void ResetAllFloorState(FloorState floorState);
 	UFUNCTION(BlueprintCallable, Category = "Map")
 	void CreateMap();
+	UFUNCTION(BlueprintCallable, Category = "Map")
+	void ClearMap();
 private:
 	using Map2D = std::map<std::pair<int, int>, FloorState>;
 	Map2D FloorMap;

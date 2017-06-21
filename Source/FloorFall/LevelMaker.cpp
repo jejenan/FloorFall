@@ -1,9 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-#include "FloorFall.h"
-#include "LevelMaker.h"
-#include "Components/BoxComponent.h"
 
+#include "LevelMaker.h"
+#include "FloorFall.h"
+#include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Floor.h"
 
 // Sets default values
 ALevelMaker::ALevelMaker()
@@ -24,7 +26,7 @@ void ALevelMaker::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ResetFloorState(FloorState::white);
+	ResetAllFloorState(FloorState::white);
 	CreateMap();
 }
 
@@ -40,7 +42,7 @@ void ALevelMaker::SetFloorState(int x, int y, FloorState val)
 	FloorMap[std::make_pair(x, y)] = val;
 }
 
-void ALevelMaker::ResetFloorState(FloorState floorState)
+void ALevelMaker::ResetAllFloorState(FloorState floorState)
 {
 
 	for (int j = 0; j < NumOfFloorY; j++)
@@ -70,6 +72,8 @@ void ALevelMaker::CreateMap()
 			int NumOfMax = FMath::Max<int>(NumOfFloorX, NumOfFloorY);
 			for (auto& floor : FloorMap)
 			{
+				if (floor.second == FloorState::empty)
+					continue;
 				int y = floor.first.first;
 				int x = floor.first.second;
 				//floor.second
@@ -94,7 +98,7 @@ void ALevelMaker::CreateMap()
 				SpawnLocation.Z = MapArea->Bounds.Origin.Z;
 
 				//spawn the pickup
-				AActor* const SpawnedFloor = World->SpawnActor<AActor>(WhatToSpawn, SpawnLocation, SpawnRotation, SpawnParams);
+				AFloor* const SpawnedFloor = World->SpawnActor<AFloor>(WhatToSpawn, SpawnLocation, SpawnRotation, SpawnParams);
 
 				//Floor mesh Scale °è»ê
 				FVector FloorOrigin;
@@ -118,6 +122,23 @@ void ALevelMaker::CreateMap()
 			
 			}
 		}
+	}
+}
+
+void ALevelMaker::ClearMap()
+{
+	UWorld* const World = GetWorld();
+	if (World)
+	{
+		//find all spawn volume actors
+ 		TArray<AActor*> FoundActors;
+ 		UGameplayStatics::GetAllActorsOfClass(World, AFloor::StaticClass(), FoundActors);
+ 		for (auto Actor : FoundActors)
+		{
+			World->DestroyActor(Actor);
+ 		}
+		ResetAllFloorState(FloorState::empty);
+
 	}
 }
 
