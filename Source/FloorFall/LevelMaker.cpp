@@ -104,7 +104,7 @@ void ALevelMaker::CreateMap()
 				FVector FloorOrigin;
 				FVector FloorBoundsExtent;
 				SpawnedFloor->GetActorBounds(true, FloorOrigin, FloorBoundsExtent);		
-				FVector RelativeScale = (TargetFloorExtent-2.f) / FloorBoundsExtent;
+				FVector RelativeScale = (TargetFloorExtent-1.f) / FloorBoundsExtent;
 
 				//Set the Floor Scale 
 				SpawnedFloor->SetActorRelativeScale3D(RelativeScale);
@@ -114,8 +114,8 @@ void ALevelMaker::CreateMap()
 				FVector Origin;
 				FVector BoundsExtent;
 				SpawnedFloor->GetActorBounds(true, Origin, BoundsExtent);
-				UE_LOG(FloorFallDebug, Log, _T("TargetFloorOrigin: %s, TargetFloorSize: %s"), *SpawnLocation.ToString(), *TargetFloorExtent.ToString());
-				UE_LOG(FloorFallDebug, Log, _T("ActorBounds Origin: %s, Extends: %s"), *Origin.ToString(), *BoundsExtent.ToString());
+		//		UE_LOG(FloorFallDebug, Log, _T("TargetFloorOrigin: %s, TargetFloorSize: %s"), *SpawnLocation.ToString(), *TargetFloorExtent.ToString());
+		//		UE_LOG(FloorFallDebug, Log, _T("ActorBounds Origin: %s, Extends: %s"), *Origin.ToString(), *BoundsExtent.ToString());
 // 					UE_LOG(FloorFallDebug, Log, _T("ActorScale3D: %s"), *SpawnedFloor->GetActorScale3D().ToString());
 			
 

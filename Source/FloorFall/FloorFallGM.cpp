@@ -26,14 +26,14 @@ void AFloorFallGM::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (HUDWidgetClass != nullptr)
-	{
-		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), HUDWidgetClass);
-		if (CurrentWidget != nullptr)
-		{
-			CurrentWidget->AddToViewport();
-		}
-	}
+// 	if (HUDWidgetClass != nullptr)
+// 	{
+// 		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), HUDWidgetClass);
+// 		if (CurrentWidget != nullptr)
+// 		{
+// 			CurrentWidget->AddToViewport();
+// 		}
+// 	}
 
 }
 

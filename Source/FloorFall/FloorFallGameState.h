@@ -16,6 +16,7 @@ public:
 	AFloorFallGameState();
 	
 
+	virtual void Tick(float DeltaSeconds) override;
 	//The widget class to use for our HUD screen
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FloorFall")
 	float RemainTime;
